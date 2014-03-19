@@ -1,6 +1,7 @@
 <?php namespace Inkwell
 {
 	use Affinity;
+	use Auryn;
 
 	@include 'vendor/autoload.php';
 	@include 'constants.php';
