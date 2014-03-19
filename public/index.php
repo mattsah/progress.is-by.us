@@ -1,6 +1,7 @@
 <?php namespace Inkwell
 {
 	use Exception;
+	use IW;
 
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -37,6 +38,27 @@
 			);
 
 			$app = include($init_path);
+
+			$app['engine']->exec(function($app, $resolver) {
+				$request  = $resolver->make('Inkwell\RequestInterface');
+				$response = $app->handle($request);
+
+				exit($request->checkMethod(IW\HTTP\HEAD)
+
+					//
+					// Return only the headers
+					//
+
+					? $response->send(TRUE)
+
+					//
+					// Return the full headers and body
+					//
+
+					: $response->send()
+				);
+			});
+
 		});
 
 	} catch (Exception $e) {
