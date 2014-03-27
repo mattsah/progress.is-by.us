@@ -36,9 +36,9 @@
 			//
 
 			'mapping' => [
-				'Inkwell\RouterInterface'   => 'Inkwell\Routing\Engine',
-				'Inkwell\ResponseInterface' => 'Inkwell\Response',
-				'Inkwell\RequestInterface'  => 'Inkwell\Request'
+				'Inkwell\Event\ManagerInterface' => 'Inkwell\Event\Manager',
+				'Inkwell\ResponseInterface'      => 'Inkwell\Response',
+				'Inkwell\RequestInterface'       => 'Inkwell\Request'
 			],
 
 			//

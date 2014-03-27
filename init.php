@@ -17,7 +17,6 @@
 		new Affinity\NativeDriver($action_dir)
 	);
 
-
 	$app['engine']->start($environment, $app, $resolver);
 
 	return $app;

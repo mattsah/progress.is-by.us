@@ -41,7 +41,9 @@
 
 			$app['engine']->exec(function($app, $resolver) {
 				$request  = $resolver->make('Inkwell\RequestInterface');
-				$response = $app->handle($request);
+				$response = $app['router']->run($request, function($action) use ($resolver) {
+					return $resolver->execute($action);
+				});
 
 				exit($request->checkMethod(IW\HTTP\HEAD)
 
@@ -64,9 +66,8 @@
 	} catch (Exception $e) {
 
 		//
-		// Panic here, attempt to determine what state we're in, see if some
-		// errors handlers are callable or if we're totally fucked.  In the
-		// end, throw the exception and let Flourish handle it appropriately.
+		// Panic here, attempt to determine what state we're in, see if some errors handlers are
+		// callable or if we're totally fucked.  In the end, throw the exception and be damned.
 		//
 
 		throw $e;

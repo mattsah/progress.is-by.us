@@ -19,10 +19,14 @@
 	],
 	"require": {
 		"php": ">=5.4.0",
-		"dotink/inkwell-core": "dev-master",
+		"filp/whoops": "1.*",
+		"rdlowrey/auryn": "dev-master",
 		"dotink/affinity": "dev-master",
-		"rdlowrey/auryn": "0.12.0",
-		"filp/whoops": "1.*"
+		"dotink/inkwell-core": "dev-master",
+		"dotink/inkwell-events": "dev-master",
+		"dotink/inkwell-routing": "dev-master",
+		"dotink/inkwell-request": "dev-master",
+		"dotink/inkwell-response": "dev-master"
 	},
 	"autoload": {
 		"classmap": ["user/"]
