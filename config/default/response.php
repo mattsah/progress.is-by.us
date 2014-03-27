@@ -86,14 +86,19 @@
 			]
 		],
 
+		//
+		// @providers allows you to wire together dependencies
+		//
 
-		//
-		// Providers
-		//
-		
 		'@providers' => [
+
+			//
+			// The provider mapping lists concrete class providers for given interfaces, the
+			// interface is the key, while the class is the value.
+			//
+
 			'mapping' => [
 				'Inkwell\ResponseInterface' => 'Inkwell\Response'
 			]
-		],
+		]
 	]);

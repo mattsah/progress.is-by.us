@@ -15,10 +15,16 @@
 		'word_separator' => '-',
 
 		//
-		// Providers
+		// @providers allows you to wire together dependencies
 		//
 		
 		'@providers' => [
+
+			//
+			// The provider mapping lists concrete class providers for given interfaces, the
+			// interface is the key, while the class is the value.
+			//
+
 			'mapping' => [
 				'Inkwell\Routing\EngineInterface'     => 'Inkwell\Routing\Engine',
 				'Inkwell\Routing\ParserInterface'     => 'Inkwell\Routing\Parser',

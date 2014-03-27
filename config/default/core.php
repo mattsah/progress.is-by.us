@@ -1,6 +1,11 @@
 <?php
 
-	return Affinity\Config::create(['providers'], [
+	return Affinity\Config::create([
+
+		//
+		// The execution mode determines default operation for some processes which should
+		// naturally differ depending on the environment (development vs. production)
+		//
 
 		'execution_mode'  => IW\EXEC_MODE\DEVELOPMENT,
 
@@ -22,33 +27,5 @@
 		// symbolic links in the "public" folder.
 		//
 
-		'write_directory' => 'writable',
-
-		//
-		// @providers allows you to wire together dependencies
-		//
-
-		'@providers' => [
-
-			//
-			// The provider mapping lists concrete class providers for given interfaces, the
-			// interface is the key, while the class is the value.
-			//
-
-			'mapping' => [
-				'Inkwell\Event\ManagerInterface' => 'Inkwell\Event\Manager',
-				'Inkwell\ResponseInterface'      => 'Inkwell\Response',
-				'Inkwell\RequestInterface'       => 'Inkwell\Request'
-			],
-
-			//
-			// The provider params gives parameters for concrete class instantiation, the class is
-			// the key, while the value is an array of params.  Parameters should begin with ':'
-			// per Auryn docs.
-			//
-
-			'params' => [
-
-			]
-		]
+		'write_directory' => 'writable'
 	]);

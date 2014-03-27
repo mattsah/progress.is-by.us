@@ -1,14 +1,10 @@
 <?php
 
-	return Affinity\Action::create(['providers'], function($app, $resolver) {
+	return Affinity\Action::create(['core'], function($app, $resolver) {
 
 		$collection = $resolver->make('Inkwell\Routing\CollectionInterface');
-		$compiler   = $resolver->make('Inkwell\Routing\CompilerInterface');
-		$response   = $resolver->make('Inkwell\ResponseInterface');
 		$router     = $resolver->make('Inkwell\Routing\EngineInterface', [
-			':collection' => $collection,
-			':response'   => $response,
-			':compiler'   => $compiler
+			':collection' => $collection
 		]);
 
 		$router->setMutable($app['engine']->fetch('routing', 'mutable', TRUE));
