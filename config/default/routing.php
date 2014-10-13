@@ -17,7 +17,7 @@
 		//
 		// @providers allows you to wire together dependencies
 		//
-		
+
 		'@providers' => [
 
 			//

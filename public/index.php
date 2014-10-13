@@ -40,25 +40,17 @@
 			$app = include($init_path);
 
 			$app['engine']->exec(function($app, $resolver) {
-				$request  = $resolver->make('Inkwell\RequestInterface');
+				$request  = $resolver->make('Inkwell\HTTP\Resource\Request');
+				$gateway  = $resolver->make('Inkwell\HTTP\Gateway\Server');
+
+				$gateway->populate($request);
+
 				$response = $app['router']->run($request, function($action) use ($resolver) {
 					return $resolver->execute($action);
 				});
 
-				exit($request->checkMethod(IW\HTTP\HEAD)
+				$gateway->transport($response);
 
-					//
-					// Return only the headers
-					//
-
-					? $response->send(TRUE)
-
-					//
-					// Return the full headers and body
-					//
-
-					: $response->send()
-				);
 			});
 
 		});

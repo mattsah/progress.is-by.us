@@ -1,13 +1,13 @@
 <?php
 
 	use IW\HTTP;
-	
+
 	return Affinity\Config::create(['providers'], [
 
 		//
 		// The default state (see below)
 		//
-		
+
 		'default_state' => HTTP\NOT_FOUND,
 
 		//
@@ -83,22 +83,6 @@
 			HTTP\UNAVAILABLE => [
 				'code' => 503,
 				'body' => 'The requested resource is temporarily unavailable'
-			]
-		],
-
-		//
-		// @providers allows you to wire together dependencies
-		//
-
-		'@providers' => [
-
-			//
-			// The provider mapping lists concrete class providers for given interfaces, the
-			// interface is the key, while the class is the value.
-			//
-
-			'mapping' => [
-				'Inkwell\ResponseInterface' => 'Inkwell\Response'
 			]
 		]
 	]);
