@@ -2,13 +2,8 @@
 
 	return Affinity\Action::create(['core'], function($app, $resolver) {
 
-		$collection = $resolver->make('Inkwell\Routing\CollectionInterface');
-		$response   = $resolver->make('Inkwell\HTTP\Resource\Response');
-
-		$router     = $resolver->make('Inkwell\Routing\EngineInterface', [
-			':collection' => $collection,
-			':response'   => $response
-		]);
+		$router     = $resolver->make('Inkwell\Routing\Engine');
+		$collection = $router->getCollection();
 
 		$router->setMutable($app['engine']->fetch('routing',  'mutable',  TRUE));
 		$router->setRestless($app['engine']->fetch('routing', 'restless', TRUE));

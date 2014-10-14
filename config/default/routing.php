@@ -26,10 +26,8 @@
 			//
 
 			'mapping' => [
-				'Inkwell\Routing\EngineInterface'     => 'Inkwell\Routing\Engine',
-				'Inkwell\Routing\ParserInterface'     => 'Inkwell\Routing\Parser',
-				'Inkwell\Routing\CompilerInterface'   => 'Inkwell\Routing\Compiler',
-				'Inkwell\Routing\CollectionInterface' => 'Inkwell\Routing\Collection'
+				'Inkwell\Routing\ParserInterface'   => 'Inkwell\Routing\Parser',
+				'Inkwell\Routing\CompilerInterface' => 'Inkwell\Routing\Compiler'
 			]
 		],
 

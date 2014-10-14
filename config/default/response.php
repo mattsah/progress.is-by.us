@@ -2,13 +2,13 @@
 
 	use IW\HTTP;
 
-	return Affinity\Config::create(['providers'], [
+	return Affinity\Config::create([
 
 		//
-		// The default state (see below)
+		// The default status (see below)
 		//
 
-		'default_state' => HTTP\NOT_FOUND,
+		'default_status' => HTTP\NOT_FOUND,
 
 		//
 		// Response states are short name aliases for various response codes and default content.
