@@ -1,6 +1,7 @@
 <?php namespace Inkwell
 {
 	use Exception;
+	use Closure;
 	use IW;
 
 	ini_set('display_errors', 1);
@@ -45,8 +46,21 @@
 
 				$gateway->populate($request);
 
-				$response = $app['router']->run($request, function($action) use ($resolver) {
-					return $resolver->execute($action);
+				$response = $app['router']->run($request, function($action, $router, $request, $response) use ($resolver) {
+					if ($action instanceof Closure) {
+						$controller = $resolver->make('Inkwell\Controller');
+						$action     = $action->bindTo($controller);
+
+					} else {
+						$controller = $resolver->make($action[0]);
+						$action     = [$controller, $action[1]];
+					}
+
+					$controller['router']   = $router;
+					$controller['request']  = $request;
+					$controller['response'] = $response;
+
+					return $action();
 				});
 
 				$gateway->transport($response);
