@@ -48,19 +48,25 @@
 
 				$response = $app['router']->run($request, function($action, $router, $request, $response) use ($resolver) {
 					if ($action instanceof Closure) {
-						$controller = $resolver->make('Inkwell\Controller');
-						$action     = $action->bindTo($controller);
+						$class      = 'Inkwell\Controller';
+						$controller = $resolver->make($class);
+						$action     = $action->bindTo($controller, $controller);
+						$reference  = [$controller, '{closure}'];
 
 					} else {
-						$controller = $resolver->make($action[0]);
-						$action     = [$controller, $action[1]];
+						$classs     = $action[0];
+						$controller = $resolver->make($class);
+						$action     = $action[1];
+						$reference  = [$controller, $action];
 					}
 
-					$controller['router']   = $router;
-					$controller['request']  = $request;
-					$controller['response'] = $response;
+					$controller->prepare($action, [
+						'router'  => $router,
+						'request'  => $request,
+						'response' => $response
+					]);
 
-					return $action();
+					return $reference;
 				});
 
 				$gateway->transport($response);
