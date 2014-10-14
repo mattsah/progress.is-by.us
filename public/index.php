@@ -53,18 +53,23 @@
 						$action     = $action->bindTo($controller, $controller);
 						$reference  = [$controller, '{closure}'];
 
-					} else {
-						$classs     = $action[0];
+					} elseif (is_array($action)) {
+						$class      = $action[0];
 						$controller = $resolver->make($class);
 						$action     = $action[1];
 						$reference  = [$controller, $action];
+
+					} else {
+						$reference  = [$action];
 					}
 
-					$controller->prepare($action, [
-						'router'  => $router,
-						'request'  => $request,
-						'response' => $response
-					]);
+					if (isset($controller)) {
+						$controller->prepare($action, [
+							'router'  => $router,
+							'request'  => $request,
+							'response' => $response
+						]);
+					}
 
 					return $reference;
 				});
