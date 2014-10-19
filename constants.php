@@ -54,8 +54,8 @@
 		//
 
 		'HTTP\REDIRECT_PERMANENT' => 301,
-		'HTTP\REDIRECT_FOUND'     => 302, // Redirects with get method, assuming processing done
-		'HTTP\REDIRECT_SEE_OTHER' => 303,
+		'HTTP\REDIRECT_INTERNAL'  => 302, // Found is used for internal redirects (aka: rewrites)
+		'HTTP\REDIRECT_SEE_OTHER' => 303, // Redirects with get method, assuming processing done
 		'HTTP\REDIRECT_TEMPORARY' => 307, // Redirects with original method, assuming nothing done
 
 		//

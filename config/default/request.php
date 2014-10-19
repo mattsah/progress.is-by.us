@@ -1,6 +1,6 @@
 <?php
 
-	return Affinity\Config::create(['providers'], [
+	return Affinity\Config::create([
 
 
 	]);

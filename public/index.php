@@ -46,7 +46,7 @@
 
 				$gateway->populate($request);
 
-				$response = $app['router']->run($request, function($action, $router, $request, $response) use ($resolver) {
+				$response = $app['router']->run($request, function($action) use ($resolver) {
 					if ($action instanceof Closure) {
 						$class      = 'Inkwell\Controller';
 						$controller = $resolver->make($class);
@@ -65,9 +65,9 @@
 
 					if (isset($controller)) {
 						$controller->prepare($action, [
-							'router'  => $router,
-							'request'  => $request,
-							'response' => $response
+							'router'   => $this,
+							'request'  => $this->request,
+							'response' => $this->response
 						]);
 					}
 
@@ -75,7 +75,6 @@
 				});
 
 				$gateway->transport($response);
-
 			});
 
 		});
