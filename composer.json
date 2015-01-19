@@ -24,10 +24,12 @@
 		"dotink/affinity": "dev-master",
 		"dotink/inkwell-core": "dev-master",
 		"dotink/inkwell-events": "dev-master",
-		"dotink/inkwell-routing": "dev-master",
 		"dotink/inkwell-http": "dev-master",
+		"dotink/inkwell-routing": "dev-master",
+		"dotink/inkwell-controller": "dev-master",
 		"dotink/inkwell-view": "dev-master",
-		"dotink/inkwell-html": "dev-master"
+		"dotink/inkwell-html": "dev-master",
+		"league/commonmark": "0.6.*@dev"
 	},
 	"autoload": {
 		"classmap": ["user/"]
