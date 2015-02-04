@@ -19,12 +19,13 @@ but can be added or used on an as needed basis.  Currently available components 
 - Controllers
 - Event Manager
 - Views
+- Auth
+- ORM
 
 Additional planned components are:
 
 - Cache
 - Logger
-- ORM
 
 ## Creating Custom Components
 

@@ -9,7 +9,7 @@ traditional routers with a lot more flexibility.
 composer require dotink/inkwell-router
 ```
 
-## Providers
+## Application Providers
 
 | Via                         | Description
 |-----------------------------|-----------------------------------------------------
@@ -88,7 +88,7 @@ accessing `$this->request`, the same is true with the current response object wh
 as `$this->response`.  Since closures are bound to the router itself, to get the router you need
 only to access `$this`.
 
-## Controller Resolver
+## Router Action Resolver
 
 By default the router will only work with object instances of type `Closure`, this is because in
 order to provide meaningful context information to an action such as the request or response, it
@@ -153,8 +153,8 @@ return Affinity\Config::create(['providers'], [
 	'@providers' => [
 
 		//
-		// The provider mapping lists concrete class providers for given interfaces, the
-		// interface is the key, while the class is the value.
+		// Provides a concrete implementation for the Router's ResolverInterface for resolving
+		// route target actions.
 		//
 
 		'mapping' => [
