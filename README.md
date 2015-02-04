@@ -1,6 +1,7 @@
 # The inKWell Framework
 
 Docs:   [http://inkwell.dotink.org/docs/](http://inkwell.dotink.org/docs/)
+
 Issues: [https://github.com/dotink/inkwell-framework/issues](https://github.com/dotink/inkwell-framework/issues)
 
 **Note: Please submit all issues for the framework or related components to this project's
