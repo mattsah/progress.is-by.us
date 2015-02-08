@@ -129,7 +129,7 @@ $broker->define('My\Router', [':routes_directory' => $app->getDirectory('routes'
 
 ```php
 $broker->prepare('My\Interesting\Interface', function($instance, $broker) {
-		$instance->someInterfaceMethod('...');
+	$instance->someInterfaceMethod('...');
 });
 ```
 
