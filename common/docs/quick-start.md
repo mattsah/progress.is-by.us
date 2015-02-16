@@ -321,8 +321,19 @@ In addition to static links like the above, you can do a lot more with dynamic U
 router.  A dynamic URL will have a route where certain segmants are replaced with parameter
 matching tokens.  URLs which match will then forward to the assigned controller.
 
-Let's check this out by creating another controller.  We'll stick this one in
-`user/controllers/BirthdayController.php`:
+For example let's add the following to the `links` section of the `config/default/routing.php`:
+
+```php
+'/birthday/[!:name]/[#:year]-[#:month]-[#:day]' => 'BirthdayController::age'
+```
+
+The above route indicates that we'll be looking for `/birthday/` followed by a name (which can
+include anything but a slash), then another slash, then positive or negative integers.  While we
+don't actually want negative integers, we're going to use this for now just for simple
+demonstration.
+
+We can handle this route by creating our controller with the appropriate action.  We'll stick this
+in `user/controllers/BirthdayController.php`:
 
 ```php
 <?php
@@ -360,17 +371,6 @@ Now let's create our corresponding view in `user/templates/birthday/age.html.php
 		</p>
 	</section>
 ```
-
-Now let's add the following to the `links` section of the `config/default/routing.php`:
-
-```php
-'/birthday/[!:name]/[#:year]-[#:month]-[#:day]' => 'BirthdayController::age'
-```
-
-The above route indicates that we'll be looking for `/birthday/` followed by a name (which can
-include anything but a slash), then another slash, then positive or negative integers.  While we
-don't actually want negative integers, we're going to use this for now just for simple
-demonstration.
 
 Once all this is added and saved, let's make sure we refresh our autoloader to find the new
 controller:

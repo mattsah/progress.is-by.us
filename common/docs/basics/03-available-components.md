@@ -51,8 +51,8 @@ The general operations are as follows:
 }
 ```
 
-For a more complete tutorial using a real world example of creating a doctrine component for
-inKWell, check out
+For a more complete tutorial using a real world example of packaging Doctrine 2 ORM for use
+with inKWell, check out
 ["Creating a Component for Doctrine"](/docs/tutorials/01-creating-a-component-for-doctrine).
 
 To understand more about configuration and bootstrap actions, try [the bootstrapping section of

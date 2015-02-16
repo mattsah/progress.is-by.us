@@ -1,7 +1,7 @@
 # Creating a Component for Doctrine
 
 In this tutorial we will create a re-usable inKWell component that enables us to easily integrate
-[doctrine 2](http://www.doctrine-project.org/projects/orm.html) into our application.
+[Doctrine 2 ORM](http://www.doctrine-project.org/projects/orm.html) into our application.
 
 ## Create the Package Structure
 
@@ -11,6 +11,12 @@ mine in `~/Code/dotink/inkwell-packages/doctrine`:
 
 ```bash
 git init ~/Code/dotink/inkwell-packages/doctrine
+```
+
+Then change to that directory:
+
+```bash
+cd ~/Code/dotink/inkwell-packages/doctrine
 ```
 
 ### Adding Common Directories
@@ -23,12 +29,18 @@ I'm going to make the following directory structure right off the bat:
     ├── config
     │   └── default
     └── include
-        └── default
+  	  └── default
+```
+
+To do this I can just execute `mkdir` with the `-p` argument:
+
+```bash
+mkdir -p plugin/{config,include}/default
 ```
 
 ### Adding a Composer File
 
-Next, I'm going to want to add my `composer.json`.  According to doctrine's getting started page,
+Next, I'm going to want to add my `composer.json`.  According to Doctrine's getting started page,
 I'll want the following:
 
 ```json
@@ -93,15 +105,20 @@ Let's go ahead an create a configuration file that'll allow us to switch them:
 	return Affinity\Config::create([
 
 		//
-		// The configuration type determines how doctrine's entity configuration is done.
+		// The configuration type determines how Doctrine's entity configuration is done.
 		// Possible values include:
 		//
-		// - annotations (config will be read from annotations on classes in your entity_root)
-		// - yaml        (config will be read from YAML files in your config_root)
-		// - xml         (config will be read from XML files in your config_root)
+		// - annotations (config will be read from annotations on classes in your `entity_root`)
+		// - yaml		(config will be read from YAML files in your `config_root`)
+		// - xml		 (config will be read from XML files in your `config_root`)
 		//
 
 		'config_type' => 'annotations',
+
+        //
+        // The `entity_root` and `config_root` will be relative to your inKWell application
+        // root unless you specify an absolute path (preceded with '/').
+        //
 
 		'entity_root' => 'user/entities',
 
@@ -110,21 +127,20 @@ Let's go ahead an create a configuration file that'll allow us to switch them:
 	]);
 ```
 
-Let's save this in our package under the `plugin/config/default` directory, but let's make a
-sub-directory first which we'll use as a namespace for our doctrine related configs.  From the
-package root:
+<div class="notice">
+    <p>
+        Because the affinity bootstrapper uses PHP for configurations, you can feel free to
+        comment as much as you like.  This is often useful for telling people what the available
+        options for a given value are.
+    </p>
+</div>
+
+Let's save this in our package, but before we do let's make an additional sub-directory so that
+we have all of our Doctrine configs namespaced:
 
 ```bash
 mkdir plugin/config/default/doctrine
 ```
-
-<div class="notice">
-	<p>
-		Note that our default config_root is in `config/default/doctrine/entities`.  This will
-        allow for us to share a single doctrine namespace for all doctrine related config, but keep
-		in mind, that will be relative to our project root, not the package root.
-	</p>
-</div>
 
 Now let's save our config to `plugin/config/default/doctrine/entities.php`.
 
@@ -132,7 +148,7 @@ Now let's save our config to `plugin/config/default/doctrine/entities.php`.
 
 In order to make the above configuration useful, we're going to want to add an action which can
 take our inKWell configuration and execute the requisite logic to set things up.  In this case,
-we'll begin by setting up an action that determines the configuration type for doctrine and
+we'll begin by setting up an action that determines the configuration type for Doctrine and
 sets it up accordingly:
 
 ```php
@@ -178,8 +194,7 @@ sets it up accordingly:
 ```
 
 Now that we have that done, let's save it in `plugin/include/default/doctrine.php`.  We're going
-to add a bit more to it later to set up our entity manager, but let's go ahead and dissect what
-we have so far.
+to add a bit more to it later to set up our entity manager, but let's dissect what we have so far.
 
 Our action begins with:
 
@@ -191,9 +206,9 @@ return Affinity\Action::create(['core'], function($app, $broker) {
 This says that we want to create an affinity bootstrapper action which:
 
 1. Requires a `core` module to be executed first, this is the inKWell core bootstrapping.
-2. Will execute the logic inside the Closure, accepting the application and broker parameters.
+2. Will execute the logic inside the Closure accepting the application and broker parameters.
 
-The `$app` and `$broker` are provided by inKWell to affinity at bootstrapping time.  The `$app` is
+The `$app` and `$broker` are provided by inKWell to affinity at startup time.  The `$app` is
 the inKWell core itself (an application container with some helper methods) and the `$broker` is
 the shared instance of our dependency injector.  These will be provided to any bootstrapping
 actions you create.
@@ -205,8 +220,18 @@ bit differently towards entity configuration depending on the mode:
 $dev_mode = $app->checkExecutionMode(IW\EXEC_MODE\DEVELOPMENT);
 ```
 
-We use the `checkExecutionMode()` method on the `$app` to do this.  From there, we extract our
-configuration data.
+We use the `checkExecutionMode()` helper method on the `$app` to do this.  This will compare the
+configured execution mode to the value we pass, in this case `IW\EXEC_MODE\DEVELOPMENT`.
+
+<div class="notice">
+    <p>
+        All constants in the `IW` namespace are configured via the `constants.php` file in the root
+        of and inKWell project.  These should not be modified by the user, but can be used for
+        consistency across inKWell components and applications.
+    </p>
+</div>
+
+From there, we extract our configuration data.
 
 ```php
 extract($app['engine']->fetch('doctrine/entities', [
@@ -225,10 +250,8 @@ In this case, since we're using `extract()` to extract them into the current sco
 only the specific ID of the config `doctrine/entities` and an array of the configuration data
 names (as keys) to the default values (as the values).
 
-At the most important part, we use a simple `switch()` construct to execute the requisite
-configuration setup (per doctrine's docs, depending on the type).  Using the `$app->getDirectory()`
-call on our entity or entity configuration directories, we will ensure it's getting the relative
-path to the project root, regardless of where inKWell is installed.
+To setup the proper Doctrine configuration, we use a simple `switch()` construct to execute the
+configuration appropriate class and method per Doctrine's docs and depending on the type.
 
 ```php
 switch ($config_type) {
@@ -239,6 +262,11 @@ switch ($config_type) {
 
 		...
 ```
+
+Using the `getDirectory()` helper method on the `$app` instance we ensure that we have an
+absolute path to the root directory to pass to Doctrine's config.   This method will take our
+relative configured root, and figure out where it is with respect to the project's application
+root.
 
 Lastly, if we haven't thrown an exception due to an unsupported type, we register the entity
 configuration in our container:
@@ -256,9 +284,9 @@ Thus far we have:
 
 - Created a package with our requisite dependencies
 - Set up and initial inKWell configuration to specify entity configuration information
-- Set up and initial inKWell bootstrap action to create the doctrine entity configuration
+- Set up and initial inKWell bootstrap action to create the Doctrine entity configuration
 
-In order to make our ensure our configuration and action are installed properly when we use the
+In order to ensure our configuration and action are installed properly when we use the
 package, we're going to add some additional composer information, namely the following pieces
 of information:
 
@@ -274,8 +302,12 @@ of information:
 }
 ```
 
-Opus is a composer plugin which will allow us to copy our default configuration and action into
-our project `config` and `include` folders when we install it via composer.
+<div class="notice">
+	<p>
+		Opus is a composer plugin which will allow us to copy our default configuration and action
+		into our project `config` and `include` folders when we install it via composer.
+    </p>
+</div>
 
 Once we have this, let's go ahead and do our initial commit.
 
@@ -315,7 +347,7 @@ Once added, we can go ahead and run:
 composer require dotink/inkwell-doctrine
 ```
 
-You should note when it actually installs our package (not just the doctrine deps) a line such as
+You should note when it actually installs our package (not just the Doctrine deps) a line such as
 `Copying files from /vendor/dotink/inkwell-doctrine`.  This is Opus copying the config and
 action files into our project.
 
@@ -343,7 +375,7 @@ _Dotink\Flourish\ProgrammerException: Could not access directory
 
 This error is because in our bootstrap action we requested an application directory that didn't
 exist.  Despite seeing this error, it is a good sign since it is looking for the directory which
-we want doctrine's entity configuration to use by default.
+we want Doctrine's entity configuration to use by default.
 
 Let's go ahead and create the directory then rerun quill.  From our project root:
 
@@ -397,9 +429,9 @@ Return to the package root and add a *new* configuration file at
 		// is deployed in many places or with different settings.
 		//
 
-		'host'     => $app->getEnvironment('DB_HOST', 'localhost'),
+		'host'	 => $app->getEnvironment('DB_HOST', 'localhost'),
 		'dbname'   => $app->getEnvironment('DB_NAME', NULL),
-		'user'     => $app->getEnvironment('DB_USER', NULL),
+		'user'	 => $app->getEnvironment('DB_USER', NULL),
 		'password' => $app->getEnvironment('DB_PASS', NULL),
 	]);
 ```
@@ -420,7 +452,7 @@ if (!isset($connection_settings['driver'])) {
 ```
 
 The above will mean that by default, with no connection configured, we're not going to execute
-any additional doctrine bootstrapping code.
+any additional Doctrine bootstrapping code.
 
 Additionally, at the very top of the file, let's add a use statement for our entity manager:
 
@@ -428,7 +460,7 @@ Additionally, at the very top of the file, let's add a use statement for our ent
 use Doctrine\ORM\EntityManager;
 ```
 
-Now, for the very last line of the callback, following the doctrine docs, let's set up our entity
+Now, for the very last line of the callback, following the Doctrine docs, let's set up our entity
 manager:
 
 ```php
@@ -501,8 +533,8 @@ like this:
 
 ```json
 {
-        "type": "vcs",
-        "url": "/home/matt/Dropbox/Code/dotink/inkwell-packages/doctrine"
+		"type": "vcs",
+		"url": "/home/matt/Dropbox/Code/dotink/inkwell-packages/doctrine"
 }
 ```
 
@@ -539,9 +571,9 @@ Lastly, I'll configure my connection in `config/default/doctrine/connection.php`
 
 ```php
 'driver'   => 'pdo_pgsql',
-'host'     => $app->getEnvironment('DB_HOST', 'localhost'),
+'host'	 => $app->getEnvironment('DB_HOST', 'localhost'),
 'dbname'   => $app->getEnvironment('DB_NAME', 'test'),
-'user'     => $app->getEnvironment('DB_USER', 'web'),
+'user'	 => $app->getEnvironment('DB_USER', 'web'),
 'password' => $app->getEnvironment('DB_PASS', NULL),
 ```
 
