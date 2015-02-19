@@ -31,6 +31,15 @@ composer create-project -s dev inkwell/framework <target>
 composer require dotink/inkwell-components
 ```
 
+## Server Setup
+
+The default docroot for an inKWell project is the `public` folder in the application root.  This
+leaves all your classes, configuration, etc, back one directory.
+
+You will want to configure your server to access this as the document root and ensure that the
+`.htaccess` or ``.user.ini` are being read.  For Apache this means you'll have to allow overrides,
+in the case of nginx, you will want to set up `try_files` to try the `index.php` entry point.
+
 ### Make Writable Writable
 
 You will want to make writable owned by the same user or group as the web server.  On debian
