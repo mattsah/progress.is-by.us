@@ -13,7 +13,7 @@ In order to install inKWell you will need [composer](https://getcomposer.org/). 
 to composer will simply use `composer` and not `composer.phar`, depending on how you've installed
 it, you may need to call a different command.
 
-### Create You Project Folder
+### Create Your Project Folder
 
 ```bash
 mkdir <target>
