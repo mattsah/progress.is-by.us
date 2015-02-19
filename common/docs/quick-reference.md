@@ -313,6 +313,12 @@ $this->request->params->get('id');
 $this->request->params->get('page', 1);
 ```
 
+##### Getting a Nested Parameter
+
+```php
+$this->request->params->get('person.name', 'Jesse Doe');
+```
+
 ### Returning
 
 You can return objects which implement a `compose()` method to render to strings.  Note, that this

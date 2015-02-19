@@ -533,8 +533,8 @@ like this:
 
 ```json
 {
-		"type": "vcs",
-		"url": "/home/matt/Dropbox/Code/dotink/inkwell-packages/doctrine"
+	"type": "vcs",
+	"url": "/home/matt/Dropbox/Code/dotink/inkwell-packages/doctrine"
 }
 ```
 
@@ -571,9 +571,9 @@ Lastly, I'll configure my connection in `config/default/doctrine/connection.php`
 
 ```php
 'driver'   => 'pdo_pgsql',
-'host'	 => $app->getEnvironment('DB_HOST', 'localhost'),
+'host'	   => $app->getEnvironment('DB_HOST', 'localhost'),
 'dbname'   => $app->getEnvironment('DB_NAME', 'test'),
-'user'	 => $app->getEnvironment('DB_USER', 'web'),
+'user'	   => $app->getEnvironment('DB_USER', 'web'),
 'password' => $app->getEnvironment('DB_PASS', NULL),
 ```
 

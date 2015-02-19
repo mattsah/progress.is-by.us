@@ -31,6 +31,18 @@ composer create-project -s dev inkwell/framework <target>
 composer require dotink/inkwell-components
 ```
 
+### Make Writable Writable
+
+You will want to make writable owned by the same user or group as the web server.  On debian
+servers, this user is often `www-data`, so for example you might run:
+
+```bash
+chown www-data <app_root>/writable
+```
+
+If you're running the local dev server then chances are this will already be writable if you
+installed with the same user who is running the server.
+
 ## First Run
 
 Once you've completed the steps above, if you have php available on your system via the CLI, then

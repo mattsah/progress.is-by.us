@@ -16,8 +16,13 @@ interact.  We encourage users to submit any issues in the core or components to 
 
 ## Server Setup
 
+The default docroot for an inKWell project is the `public` folder in the application root.  This
+leaves all your classes, configuration, etc, back one directory.
+
 Out of the box, inKWell's nano core will not provide any `index.php` entry point although it will
 provide an apache `.htaccess` file so you can easily add one.
+
+In addition to an `.htaccess` file a comparable `.user.ini` file is there for CGI or FPM setups.
 
 <div class="notice">
 	<p>
@@ -28,10 +33,16 @@ provide an apache `.htaccess` file so you can easily add one.
 	</p>
 </div>
 
-The default docroot for an inKWell project is the `public` folder in the application root.  This
-leaves all your classes, configuration, etc, back one directory.
+### Make Writable Writable
 
-In addition to an `.htaccess` file a comparable `.user.ini` file is there for CGI or FPM setups.
+You will want to make writable owned by the same user or group as the web server.  On debian
+servers, this user is often `www-data`, so for example you might run:
+
+```bash
+chown www-data <app_root>/writable
+```
+
+### Post Setup
 
 <div class="notice">
 	<p>

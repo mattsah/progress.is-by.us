@@ -36,7 +36,9 @@ namespace Inkwell\HTML;
 
 Escaping can be done explicitly with:
 
+```php
 <?= html::esc($value) ?>
+```
 
 If no additional filters are set, escaping is done automatically on `html::out()`.
 
