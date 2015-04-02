@@ -11,7 +11,7 @@
 	}
 
 	$app  	       = new Core(realpath(__DIR__));
-	$broker        = new Auryn\Provider();
+	$broker        = new Auryn\Injector();
 	$config_dir    = $app->getDirectory($app->getEnvironment('IW_CONFIG_ROOT', 'config'));
 	$action_dir    = $app->getDirectory($app->getEnvironment('IW_ACTION_ROOT', 'include'));
 	$environment   = $app->getEnvironment('IW_ENVIRONMENT', 'prod');
