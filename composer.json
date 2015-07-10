@@ -4,6 +4,7 @@
 	"keywords": ["mvc", "framework", "application"],
 	"license": "AGPL 3.0",
 	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"authors": [
 		{
 			"name":  "Matthew J. Sahagian",
@@ -21,7 +22,10 @@
 		"php": ">=5.4.0",
 		"rdlowrey/auryn": "dev-master",
 		"dotink/affinity": "dev-master",
-		"dotink/inkwell-core": "dev-master"
+		"dotink/inkwell-core": "dev-master",
+		"dotink/inkwell-components": "dev-master",
+		"dotink/inkwell-http": "dev-psr7 as dev-master",
+		"psr/http-message": "^1.0.0"
 	},
 	"autoload": {
 		"classmap": ["user/"]
