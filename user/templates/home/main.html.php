@@ -6,14 +6,14 @@
 
 	?>
 	<section role="main">
-		<h1>Progress Is By Us</h1>
+		<h1>Progress is by Us</h1>
 		<p class="highlight">
 			We want to know where our representatives stand on the bills we care about <em>before</em> they go to vote.  More, we want to know who is standing against the bills we support and why so that we can hold them accountable.
 		</p>
 
 		<div class="group container brochure">
 			<div class="step">
-				<h3><span class="order">1.</span> Find Out Who Represents You</h3>
+				<h3><span class="order">1.</span> See who represents you</h3>
 				<p>
 					Get a list of your current senators and your representative and their contact information.
 				</p>
@@ -21,7 +21,7 @@
 			</div>
 
 			<div class="step">
-				<h3><span class="order">2.</span> Find a Bill to Support</h3>
+				<h3><span class="order">2.</span> Find a bill to support</h3>
 				<p>
 					Browse and learn about progressive bills that need to garner support in order to be successful.
 				</p>
@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="step">
-				<h3><span class="order">3.</span> Report Your Representatives</h3>
+				<h3><span class="order">3.</span> Report your representatives</h3>
 				<p>
 					Contact your representative and ask them a few simple questions regarding the bills you support.
 				</p>
@@ -41,7 +41,7 @@
 	<section id="learn">
 		<h2>Learn About a Bill</h2>
 		<p>
-			Browse the list of bills below and learn a little bit about them.  Use the links to conduct independent research or read the full text if you're so inclined.  Once you found a bill that you support, call your senators or representative and fill in the report.
+			Browse the list of bills below and learn a little bit about them.  Use the links to conduct independent research or read the full text if you're so inclined.  Once you found a bill that you support, call your senators or representative and fill in the report with the answers they provide.
 		</p>
 
 		<div>
@@ -68,10 +68,10 @@
 		<h2>Report Your Representative</h2>
 
 		<p>
-			Each question is designed only to be answered if the previous question was answered in the affirmative.
+			Select the bill you're reporting on and the representative which you are reporting, then ask them each of the basic questions and optionally to provide more detail.
 		</p>
 
-		<form>
+		<form action="" method="post">
 			<fieldset>
 				<label>What bill are you reporting on?</label>
 				<select>
@@ -84,6 +84,12 @@
 					<option value="">Select One...</option>
 				</select>
 			</fieldset>
+
+			<h3>Questions to Ask Your Representative</h3>
+
+			<p>
+				Each question is designed in such a way that you should not ask them the next question unless they answer the previous question in the affirmative.  If they're not familiar with the bill, do not ask them if they support it, leave those questions blank.
+			</p>
 
 			<div class="group brochure">
 				<fieldset>
@@ -107,7 +113,7 @@
 						Do you intend to support this bill if it comes to the floor and/or for a vote?
 					</label>
 					<select>
-						<option value="0">Select Answer</option>
+						<option value="0">Not Applicable</option>
 						<option value="1">Yes</option>
 						<option value="-1">No</option>
 					</select>
@@ -123,7 +129,7 @@
 						Are you currently co-sponsoring or do you intend to cosponsor this bill?
 					</label>
 					<select>
-						<option value="0">Select Answer</option>
+						<option value="0">Not Applicable</option>
 						<option value="1">Yes</option>
 						<option value="-1">No</option>
 					</select>
