@@ -59,7 +59,7 @@
 			//
 
 			'links' => [
-				'/' => 'HomeController::main'
+
 			],
 
 			//
